@@ -1,7 +1,7 @@
-const Router = require('express').Router();
+const router = require('express').Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-Router.post("/create-session", async (req, res) => {
+router.post("/create-session", async (req, res) => {
 
   const { articleId, quantity } = req.body;
   const article = require('../data/articles').find(({ id }) => id == articleId);
@@ -31,11 +31,11 @@ Router.post("/create-session", async (req, res) => {
 });
 
 
-Router.get("/cancel", (req, res) => {
+router.get("/cancel", (req, res) => {
   res.send({ message: "Transaction cancelled" });
 });
 
-Router.get("/success", (req, res) => {
+router.get("/success", (req, res) => {
   stripe.checkout.sessions.retrieve(
     req.query.session_id,
     (err, session) => {
@@ -45,4 +45,27 @@ Router.get("/success", (req, res) => {
   );
 });
 
-module.exports = Router;
+
+router.post('/webhook', require('express').raw({ type: 'application/json' }), (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+  let endpointSecret = "";
+
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  } catch (err) {
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    res.json({ received: true, session });
+    console.log("🔔 Payment Successfull");
+  }
+  else {
+    res.json({ received: false });
+    console.log("🔔 Payment Failed");
+  }
+});
+
+module.exports = router;

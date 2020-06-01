@@ -20,7 +20,7 @@ module.exports = [
     inStock: true,
     type: 'tshirt',
     title: 'My Shirt black/white',
-    price: 9.99,
+    price: 4.99,
     img: "https://source.unsplash.com/400x400/?shirt",
   },
   {
