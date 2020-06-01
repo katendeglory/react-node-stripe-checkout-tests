@@ -11,8 +11,8 @@ const NewStripeButton = () => {
   const handleClick = async e => {
     setLoading(true);
 
-    const { data: { id } } = await axios.post("http://localhost:5000/checkout/create-session", {
-      articleId: 3, quantity: 2
+    const { data: { id } } = await axios.post("https://still-journey-20024.herokuapp.com/checkout/create-session", {
+      articleId: 5, quantity: 2
     });
 
     const stripe = await stripePromise;

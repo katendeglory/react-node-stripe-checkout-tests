@@ -31,4 +31,12 @@ module.exports = [
     price: 20.99,
     img: "https://source.unsplash.com/400x400/?tshirt",
   },
+  {
+    id: 5,
+    inStock: true,
+    type: 'tshirt',
+    title: 'SnyderCut Bluray Copy',
+    price: 14.99,
+    img: "https://source.unsplash.com/400x400/?movie",
+  },
 ];
