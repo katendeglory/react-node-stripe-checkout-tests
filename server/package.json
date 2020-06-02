@@ -1,10 +1,11 @@
 {
-  "name": "server",
+  "name": "stripe-js-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
     "server": "nodemon server.js",
+    "start": "node server.js",
     "client": "yarn start --prefix client",
     "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },

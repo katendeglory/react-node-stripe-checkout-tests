@@ -20,5 +20,3 @@ app.use("/articles", require('./routes/articles'));
 
 const port = process.env.PORT || 5000;
 app.listen(port);
-
-// git commit -am "Initial commit" && git push heroku master
